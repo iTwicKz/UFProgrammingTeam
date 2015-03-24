@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class blackOut {
+	
+	public static void main(String[] args){
+		Scanner input = new Scanner(System.in);
+		int testCases = input.nextInt();
+		for(int i = 0; i < testCases; i++){
+		System.out.println("3 1 3 6");
+		
+		while((input.next()).compareTo("GAME") != 0){
+			
+				int x1 = Integer.parseInt(input.next());
+				//System.out.print((7 - q) + " ");
+				int y1 = Integer.parseInt(input.next());
+				//System.out.print((6 - q) + " ");
+				int x2 = Integer.parseInt(input.next());
+				
+				int y2 = Integer.parseInt(input.next());
+				
+				System.out.println((6-x2) + " " + (7-y2) + " " + (6-x1) + " " + (7-y1));
+			}
+			
+			//System.out.println();
+		}
+	}
+	
+}
