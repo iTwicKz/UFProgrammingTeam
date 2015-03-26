@@ -1,0 +1,29 @@
+import java.math.BigInteger;
+
+
+public class Fibosum {
+	public static void main(String[] args){
+		
+		Scanner input = new Scanner(System.in);
+		int testCases = input.nextInt();
+		
+		for(int cases = 0; cases < testCases; cases++){
+			
+			int minIndex = input.nextInt();
+			int maxIndex = input.nextInt();
+			
+			int sum = 0;
+			
+			int sum = 0;
+			sum = fib(maxIndex+2) - 2;
+		}
+	}
+	//http://www.spoj.com/problems/FIBSUM/
+	static int fib(int n){
+		int[][] ans = new int[2][1];
+		
+		ans = multi()
+		
+	}
+	
+}
