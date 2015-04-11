@@ -1,0 +1,90 @@
+import java.util.*;
+import java.io.*;
+import java.util.*;
+
+class Solution{
+	public static void main(String[] args){
+		File file = new File("B-small-attempt1.in");
+
+
+		try {
+			File fout = new File("output.txt");
+			if(!fout.exists()){
+				fout.createNewFile();
+			}
+
+			FileWriter fos = new FileWriter(fout.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fos);
+
+			Scanner input = new Scanner(file);
+			int testCases = input.nextInt();
+
+			for(int cases = 0; cases < testCases; cases++){
+				ArrayList<Integer> diners = new ArrayList<>();
+				int platedDiners = input.nextInt();
+				
+				for(int i = 0; i < platedDiners; i++){
+					diners.add(input.nextInt());
+					bw.write(diners.get(i) + " ");
+				}
+				bw.newLine();
+
+				int maxEaten = 1;
+				int minutes = 0;
+
+				while(maxEaten > 0){
+
+					int max = 0;
+					int secondMax = 0;
+					maxEaten = 0;
+					int maxIndex = -1;
+					boolean duplicate = false;
+					for(int i = 0; i < diners.size(); i++){
+						if(max == diners.get(i) && !duplicate){
+							secondMax = max;
+							duplicate = true;
+						}
+						if(max < diners.get(i)){
+							duplicate = false;
+							secondMax = max;
+							max = diners.get(i);
+							maxIndex = i;
+						}
+					}
+					bw.write("Max(" + max + ")");
+					if(max % 2 == 0  && max > 2){
+						//bw.write("Divide By two");
+						diners.set(maxIndex, max / 2);
+						bw.write(diners.get(0));
+						diners.add(diners.get(maxIndex));
+						maxEaten = 1;
+					}
+					else{
+						for(int i = 0; i < diners.size(); i++){
+							diners.set(i, diners.get(i) - 1);
+							if(diners.get(i) > maxEaten){
+								maxEaten = diners.get(i);
+							}
+						}
+					}
+
+					minutes++;
+					//bw.newLine();
+				}
+				
+				bw.write("Case #" + (cases+1) + ": " + minutes);
+				bw.newLine();
+			}
+			bw.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	
+}
+
