@@ -4,7 +4,7 @@ import java.util.*;
 
 class Solution{
 	public static void main(String[] args){
-		File file = new File("B-small-attempt1.in");
+		File file = new File("B-small-attempt3.in");
 
 
 		try {
@@ -25,25 +25,39 @@ class Solution{
 				
 				for(int i = 0; i < platedDiners; i++){
 					diners.add(input.nextInt());
-					bw.write(diners.get(i) + " ");
+					//bw.write(diners.get(i) + " ");
 				}
-				bw.newLine();
+				//bw.newLine();
 
 				int maxEaten = 1;
 				int minutes = 0;
+				int bigCount = 0;
+				int initialMax = 0;
+				int initMaxSave = 0;
+				for(int i = 0; i < diners.size(); i++){
+					if(diners.get(i) > initialMax){
+						initialMax = diners.get(i);
+					}
+				}
+				initMaxSave = initialMax;
+				if(initialMax % 2 != 0) initialMax--;
+
+				initialMax /= 2;
+
+				
 
 				while(maxEaten > 0){
 
 					int max = 0;
 					int secondMax = 0;
 					maxEaten = 0;
-					int maxIndex = -1;
-					boolean duplicate = false;
+					int maxIndex = 0;
+					//boolean duplicate = false;
 					for(int i = 0; i < diners.size(); i++){
-						if(max == diners.get(i) && !duplicate){
-							secondMax = max;
-							duplicate = true;
-						}
+						//if(max == diners.get(i) && !duplicate){
+						//	secondMax = max;
+						//	duplicate = true;
+						//}
 						if(max < diners.get(i)){
 							duplicate = false;
 							secondMax = max;
@@ -51,15 +65,22 @@ class Solution{
 							maxIndex = i;
 						}
 					}
-					bw.write("Max(" + max + ")");
-					if(max % 2 == 0  && max > 2){
-						//bw.write("Divide By two");
-						diners.set(maxIndex, max / 2);
-						bw.write(diners.get(0));
-						diners.add(diners.get(maxIndex));
+					int maxCount = Collections.frequency(diners, max);
+
+					//bw.write("Max(" + max + ")");
+					if(max >= 8) bigCount++;
+
+					if(max % 2 == 0  && max > 2 && max > initialMax && maxCount < max/2){
+						//bw.write("SM ");
+						int maxHalf = max/2;
+						//bw.write(maxHalf + " ");
+						diners.set(maxIndex, maxHalf);
+						//bw.write(diners.get(maxIndex) + " ");
+						diners.add(maxHalf);
 						maxEaten = 1;
 					}
 					else{
+						//bw.write("eat");
 						for(int i = 0; i < diners.size(); i++){
 							diners.set(i, diners.get(i) - 1);
 							if(diners.get(i) > maxEaten){
@@ -71,7 +92,9 @@ class Solution{
 					minutes++;
 					//bw.newLine();
 				}
-				
+				//if(minutes > initMaxSave) minutes = initMaxSave;
+
+
 				bw.write("Case #" + (cases+1) + ": " + minutes);
 				bw.newLine();
 			}
